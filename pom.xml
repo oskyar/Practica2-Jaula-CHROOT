@@ -24,6 +24,11 @@
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -49,14 +54,14 @@
 			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-all-server</artifactId>
 			<version>${jetty.version}</version>
-			<!--  needs to be compile time as we bring our own embedded Jetty -->
+			<!-- needs to be compile time as we bring our own embedded Jetty -->
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-			<!--  needs to be compile time as we bring our own embedded Jetty -->
+			<!-- needs to be compile time as we bring our own embedded Jetty -->
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
