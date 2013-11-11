@@ -162,7 +162,7 @@ Me ha parecido una práctica muy interesante en la que he aprendido bastante. ya
 
 ##ENLACES:
 
-[APP en Heroku](estadisticasobjetivos-iv.herokuapp.com/)
+[APP en Heroku](http://estadisticasobjetivos-iv.herokuapp.com/)
 
 [Documentación](https://github.com/oskyar/Practica2-Jaula-CHROOT/blob/master/documentacion/documentacion.md)
 
