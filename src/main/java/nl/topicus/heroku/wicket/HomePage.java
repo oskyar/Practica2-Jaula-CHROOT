@@ -40,6 +40,8 @@ import java.util.Calendar;
 
 public class HomePage extends WebPage {
 	private static final long serialVersionUID = 1L;
+	
+	int objCompletados=0, objNoCompletados=0;
 
 	public HomePage(final PageParameters parameters) throws IOException {
 		final ArrayList<String> preguntas = new ArrayList<String>();
@@ -120,14 +122,21 @@ public class HomePage extends WebPage {
 		final TextField<String> urlObjetivos = new TextField<String>(
 				"urlObjetivos", new Model(""));
 		formPorcentaje.add(urlObjetivos);
-		final Label feedbackObjectivos = new Label("feedbackObjectivos",
+		final Label feedbackObjetivos = new Label("feedbackObjetivos",
 				new Model(""));
-		feedbackObjectivos.setOutputMarkupId(true);
+		feedbackObjetivos.setOutputMarkupId(true);
 
-		add(feedbackObjectivos);
+		add(feedbackObjetivos);
 		urlObjetivos.setOutputMarkupId(true);
 		urlObjetivos.setRequired(true);
-
+		
+		
+		final Label labelObjCumplidos = new Label("objCumplidos", new Model(""));
+		final Label labelNoObjCumplidos = new Label("objNoCumplidos", new Model(""));
+		labelObjCumplidos.setOutputMarkupId(true);
+		labelNoObjCumplidos.setOutputMarkupId(true);
+		add(labelNoObjCumplidos);
+		add(labelObjCumplidos);
 		IndicatingAjaxButton botonPorcentaje = new IndicatingAjaxButton(
 				"calcularPorcentaje", formPorcentaje) {
 
@@ -137,33 +146,40 @@ public class HomePage extends WebPage {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				String url = urlObjetivos.getModelObject();
 				try {
+
 					int porcentaje = getContenidoHTML(url);
-					System.out.println("PORCENTAJE: " + porcentaje);
-					feedbackObjectivos.setVisible(true);
-					feedbackObjectivos
+					feedbackObjetivos.setVisible(true);
+					feedbackObjetivos
 							.setDefaultModelObject("Porcentaje completado: "
 									+ porcentaje + " %");
+					labelNoObjCumplidos.setOutputMarkupId(true);
+					labelObjCumplidos.setOutputMarkupId(true);
+					labelNoObjCumplidos.setDefaultModelObject(objNoCompletados);
+					labelNoObjCumplidos.add(new ClassModifier("error"));
+					labelObjCumplidos.setDefaultModelObject(objCompletados);
+					labelObjCumplidos.add(new ClassModifier("acierto"));
+					target.add(labelNoObjCumplidos, labelObjCumplidos);
 					if(porcentaje >= 90)
-						feedbackObjectivos.add(new ClassModifier("fb acierto"));
+						feedbackObjetivos.add(new ClassModifier("fb acierto"));
 					else if(porcentaje >50 || porcentaje < 90){
-						feedbackObjectivos.add(new ClassModifier("fb regular"));
+						feedbackObjetivos.add(new ClassModifier("fb regular"));
 					}else{
-						feedbackObjectivos.add(new ClassModifier("fb error"));
+						feedbackObjetivos.add(new ClassModifier("fb error"));
 					}
 
 
 				} catch (IOException e) {
 					//e.printStackTrace();
-					feedbackObjectivos
+					feedbackObjetivos
 					.setDefaultModelObject("URL mal formada, no existe, o no contiene una lista de objetivos con [x] ó []");
-					feedbackObjectivos.add(new ClassModifier("fb error"));
+					feedbackObjetivos.add(new ClassModifier("fb error"));
 				}
-				target.add(feedbackObjectivos);
+				target.add(feedbackObjetivos);
 			}
 
 			@Override
 			protected void onError(AjaxRequestTarget arg0, Form<?> arg1) {
-				feedbackObjectivos.setDefaultModelObject("errorrrr");
+				feedbackObjetivos.setDefaultModelObject("errorrrr");
 			}
 		};
 		formPorcentaje.add(botonPorcentaje);
@@ -178,8 +194,6 @@ public class HomePage extends WebPage {
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 				uc.getInputStream()));
 		String inputLine;
-		double objCompletados = 0;
-		double objNoCompletados = 0;
 		while ((inputLine = in.readLine()) != null) {
 
 			if (inputLine.contains("[x]") || inputLine.contains("[X]"))
@@ -189,8 +203,9 @@ public class HomePage extends WebPage {
 			}
 		}
 		in.close();
-		System.out.println("COMPLETADOS: " + objCompletados
-				+ " --- NO COMPLETADOS: " + objNoCompletados);
-		return (int)((objCompletados / (objCompletados + objNoCompletados)) * 100);
+		if(objCompletados + objNoCompletados ==0)
+			return (0);
+		else
+			return (int)((objCompletados / (objCompletados + objNoCompletados)) * 100);
 	}
 }

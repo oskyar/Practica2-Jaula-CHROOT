@@ -1,5 +1,5 @@
 <!--
-  Esta archivo pertenece a la aplicación "generador de objetivos" bajo licencia GPLv2.
+  Esta archivo pertenece a la aplicación "Estadísticas de objetivos" bajo licencia GPLv2.
   Copyright (C) 2013 Óscar R. Zafra Megías.
 
   Este programa es software libre. Puede redistribuirlo y/o modificarlo bajo los términos 
@@ -54,28 +54,30 @@
 				</button>
 			</form>
 			<div class="fb" wicket:id="feedback"></div>
-			<br /> <br /> <br />
+			<br />
+			<br />
+			<br />
 			<hr style="border: 2px; border-style: dashed;">
 
-			<div class="titulo">¿Porcentaje completado?...</div>
+			<div class="titulo">&iquest;Porcentaje completado?...</div>
 			<div class="descripcion">Esta segunda parte trata de coger tu
 				archivo de objetivos dentro del meta del repositorio del profesor y
 				calcular el porcentaje total completado.</div>
 			<br> <span style="color: red; font-weight: bold;"> OJO:
-				Lo calcula según los objetivos añadidos a tu archivo de objetivos.</span> <br>
-			<br>
+				Lo calcula seg&uuacute;n los objetivos a&ntilde;adidos a tu archivo de objetivos.</span> <br><br>
 			<form wicket:id="formPorcentaje">
-				<strong>Pon la URL </strong>(Ejemplo:
-				https://github.com/IV-GII/GII-2013/blob/master/meta/miArchivo.md): <input
-					class="form-control boton" type="text" wicket:id="urlObjetivos" />
+				<strong>Pon la URL </strong>(Ejemplo: https://github.com/IV-GII/GII-2013/blob/master/meta/miArchivo.md): <input class="form-control boton"
+					type="text" wicket:id="urlObjetivos" />
 				<button type="submit" class="btn btn-primary boton"
-					wicket:id="calcularPorcentaje">
+					wicket:id="calcularPorcentaje" style="float:right">
 					<span class="glyphicon glyphicon-search"></span> Calcular
 					Porcentaje
 				</button>
 			</form>
 			<br />
-			<div class="fb" wicket:id="feedbackObjectivos"></div>
+			<div class="fb"> Objetivos completados: <span wicket:id="objCumplidos"></span></div>
+			<div class="fb"> Objetivos NO completados: <span wicket:id="objNoCumplidos">5</span></div>
+			<div class="fb" style="clear:left; float:left" wicket:id="feedbackObjetivos"></div>
 
 		</div>
 		<div class="footer">
