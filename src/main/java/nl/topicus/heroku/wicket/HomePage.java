@@ -146,7 +146,8 @@ public class HomePage extends WebPage {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				String url = urlObjetivos.getModelObject();
 				try {
-
+					objCompletados=0;
+					objNoCompletados=0;
 					int porcentaje = getContenidoHTML(url);
 					feedbackObjetivos.setVisible(true);
 					feedbackObjetivos
